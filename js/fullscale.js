@@ -47,31 +47,15 @@ const genComments = (dataArray) => {
   commentContainer.appendChild(genCommentsFragment);
 };
 
-// Функция для вывода количества показанных комментариев к фотографии
-const getShownComments = () => {
-  shownCommentsCount.textContent = active;
-};
-
 // Функция для порционной генерации комментариев
 
 function getCommentsPortion() {
-  const total = commentsArray.length;
-  const hidden = total - active;
-  const caseParam = true;
-  switch (caseParam) {
-    case (hidden === 0): // Скрытых комментариев 0 - скрываем кнопку (счетчик остается на нуле тоже)
-      commentsLoader.classList.add('hidden'); break;
-    case (hidden <= COMMENTS_PACE): // Скрытых комментариев меньше константы - добавляем все до конца, скрываем кнопку
-      genComments(commentsArray.slice(active, total));
-      commentsLoader.classList.add('hidden');
-      active = total; // Увеличиваем счетчик до значения "все комментарии"
-      break;
-    case (hidden > COMMENTS_PACE): // Скрытых комментариев больше константы - добавляем количество по константе
-      genComments(commentsArray.slice(active, active + COMMENTS_PACE));
-      active += COMMENTS_PACE; // Увеличиваем счетчик на константу
-      break;
+  const portionArray = commentsArray.slice(active, active + COMMENTS_PACE); // пробуем сделать порцию-срез массива
+  genComments(portionArray); // генерируем комменты по этой порции массива
+  if ((commentsArray.length - active) <= COMMENTS_PACE) { // скрываем кнопку если эта итерация была последней
+    commentsLoader.classList.add('hidden');
   }
-  getShownComments();
+  shownCommentsCount.textContent = active += portionArray.length; // обновляем счетчик И обновляем active
 }
 
 // Функция для обработчика события на нажатие Esc при открытом модальном окне
