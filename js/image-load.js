@@ -5,8 +5,8 @@ const fileChooser = document.querySelector('#upload-file');
 const preview = document.querySelector('.img-upload__preview img');
 const effectPreviews = document.querySelectorAll('.effects__preview');
 
-// добавляем событие на change c проверкой типа файла
-fileChooser.addEventListener('change', () => {
+// функция проверки формата и загрузки фото
+const uploadImage = () => {
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -17,4 +17,7 @@ fileChooser.addEventListener('change', () => {
       element.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
     });
   }
-});
+};
+
+// экспортируем функцию загрузки в модуль form (где обрабатываем инпуты)
+export {uploadImage};
