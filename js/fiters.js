@@ -20,9 +20,8 @@ const onClickToogleActive = (evt) => {
 };
 
 // Функция, отрисовывающая фотографии c фильтром по умолчанию
-const setDefaultFilter = (array, miniaturesFunction, fullscaleFuncion) => {
+const setDefaultFilter = (array, miniaturesFunction) => {
   miniaturesFunction(array);
-  fullscaleFuncion(array);
 };
 
 // Функция для получения массива с необходимым количеством случайных фотографий
@@ -33,10 +32,9 @@ const getRandomArray = (array) => {
 };
 
 // Функция, отрисовывающая фотографии с рандомным фильтром
-const setRandomFilter = (array, miniaturesFunction, fullscaleFuncion) => {
+const setRandomFilter = (array, miniaturesFunction) => {
   const randomArray = getRandomArray(array);
   miniaturesFunction(randomArray);
-  fullscaleFuncion(randomArray);
 };
 
 // Функция для сравнения фото по количеству комментариев
@@ -52,23 +50,22 @@ const sortArrayByComments = (array) => {
 
 // Функция, отрисовывающая фотографии в зависимости от количества комментариев
 
-const setDiscussedFilter = (array, miniaturesFunction, fullscaleFuncion) => {
+const setDiscussedFilter = (array, miniaturesFunction) => {
   const sortedArray = sortArrayByComments(array);
   miniaturesFunction(sortedArray);
-  fullscaleFuncion(sortedArray);
 };
 
 // Функция, устанавливающая фильтры
-const setFilters = (array, miniaturesFunction, fullscaleFuncion) => {
-  setDefaultFilter(array, miniaturesFunction, fullscaleFuncion);
+const setFilters = (array, miniaturesFunction) => {
+  setDefaultFilter(array, miniaturesFunction);
   filterBlock.classList.remove('img-filters--inactive');
 
   defaultButton.addEventListener('click', debounce(
-    () => setDefaultFilter(array, miniaturesFunction, fullscaleFuncion),RERENDER_DELAY));
+    () => setDefaultFilter(array, miniaturesFunction),RERENDER_DELAY));
   randomButton.addEventListener('click', debounce(
-    () => setRandomFilter(array, miniaturesFunction, fullscaleFuncion),RERENDER_DELAY));
+    () => setRandomFilter(array, miniaturesFunction),RERENDER_DELAY));
   discussedButton.addEventListener('click', debounce(
-    () => setDiscussedFilter(array, miniaturesFunction, fullscaleFuncion),RERENDER_DELAY));
+    () => setDiscussedFilter(array, miniaturesFunction),RERENDER_DELAY));
 
 };
 
