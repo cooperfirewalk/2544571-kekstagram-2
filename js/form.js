@@ -1,6 +1,9 @@
 // импорт функции отправки данных
 import { sendData } from './api.js';
 
+// импортируем функцию загрузки фото
+import { uploadImage } from './image-load.js';
+
 // Импортируем функции из утилитарного модуля (ескейп, показ алерта, скрытие алерта)
 import { isEscapeKey, showUploadAlert, hideUploadAlert } from './utils.js';
 
@@ -152,6 +155,7 @@ uploadOverlayCloseButton.addEventListener('click', closeUploadOverlay);
 // добавляем открытие модального окна на инпут при изменении содержания (загрузки изображения)
 imageUploadInput.addEventListener('change', () => {
   openUploadOverlay();
+  uploadImage();
 });
 
 // добавляем событие на отправку формы
