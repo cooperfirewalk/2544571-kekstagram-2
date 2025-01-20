@@ -16,7 +16,6 @@ const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 const COMMENTS_PACE = 5; // Константа, задающая шаг - количество показываемых комментариев
-let listenerCount = 0;
 
 // создание модального окна и всей его начинки оборачиваем в функцию для экспорта
 const setFullscale = (array) => {
@@ -37,24 +36,24 @@ const setFullscale = (array) => {
   <p class="social__text">{{текст комментария}}</p>`;
 
   // Создаем фрагмент, куда будем добавлять комментарии
-  const genCommentsFragment = document.createDocumentFragment();
+  const generatedCommentsFragment = document.createDocumentFragment();
 
   // Функция, создающая комментарии к фотографии из данных из массива
-  const genComments = (dataArray) => {
+  const generateComments = (dataArray) => {
     dataArray.forEach(({ avatar, message, name }) => {
       const commentElement = commentTemplate.cloneNode(true);
       commentElement.querySelector('.social__picture').src = avatar;
       commentElement.querySelector('.social__picture').alt = name;
       commentElement.querySelector('.social__text').textContent = message;
-      genCommentsFragment.appendChild(commentElement);
+      generatedCommentsFragment.appendChild(commentElement);
     });
-    commentContainer.appendChild(genCommentsFragment);
+    commentContainer.appendChild(generatedCommentsFragment);
   };
 
   // Функция для порционной генерации комментариев
   const getCommentsPortion = () => {
     const portionArray = commentsArray.slice(active, active + COMMENTS_PACE); // пробуем сделать порцию-срез массива
-    genComments(portionArray); // генерируем комменты по этой порции массива
+    generateComments(portionArray); // генерируем комменты по этой порции массива
     if ((commentsArray.length - active) <= COMMENTS_PACE) { // скрываем кнопку если эта итерация была последней
       commentsLoader.classList.add('hidden');
     }
@@ -115,13 +114,7 @@ const setFullscale = (array) => {
   bigPictureCloseButton.addEventListener('click', closeBigPicture);
 
   // Добавляем событие на миниатюры (родительский элемент)
-
-  // picturesContainer.removeEventListener('click', onMiniatureClick); - не удалял обработчик! почему?
-  // поэтому вариант с глобальной переменной listenerCount ниже
-  if (listenerCount === 0) {
-    picturesContainer.addEventListener('click', onMiniatureClick);
-    listenerCount = listenerCount + 1;
-  }
+  picturesContainer.addEventListener('click', onMiniatureClick);
 };
 
 export { setFullscale };

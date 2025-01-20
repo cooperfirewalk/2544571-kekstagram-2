@@ -1,6 +1,9 @@
 // импорт функции отправки данных
 import { sendData } from './api.js';
 
+// импортируем функцию загрузки фото
+import { uploadImage } from './image-load.js';
+
 // Импортируем функции из утилитарного модуля (ескейп, показ алерта, скрытие алерта)
 import { isEscapeKey, showUploadAlert, hideUploadAlert } from './utils.js';
 
@@ -21,12 +24,12 @@ const COMMENT_LENGTH = 140;
 const HASHTAGS_AMOUNT = 5;
 const PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
-// тексты ошибок - СЛОВАРЬ?
-const errorsText = {
-  hashtagsInvalid: 'введён невалидный хэштег',
-  hashtagsLimit: 'превышено количество хэштегов',
-  hashtagsRepeat: 'хэштеги повторяются',
-  commentLength: 'длина комментария больше 140 символов'
+// тексты ошибок
+const ErrorsText = {
+  HASHTAG_INVALID: 'введён невалидный хэштег',
+  HASHTAGS_LIMIT: 'превышено количество хэштегов',
+  HASHTAGS_REPEAT: 'хэштеги повторяются',
+  COMMENT_LENGTH: 'длина комментария больше 140 символов'
 };
 
 //Создаем экземпляр Пристин
@@ -135,23 +138,24 @@ function closeAlert(result) { // function declaration так как нужна �
 }
 
 // добавляем валидатор на длину комментария
-pristine.addValidator(commentsInput, validateCommentLength, errorsText.commentLength);
+pristine.addValidator(commentsInput, validateCommentLength, ErrorsText.COMMENT_LENGTH);
 
 // добавляем валидатор на количество хэштегов
-pristine.addValidator(hashtagsInput, validateHashtagsAmount, errorsText.hashtagsLimit);
+pristine.addValidator(hashtagsInput, validateHashtagsAmount, ErrorsText.HASHTAGS_LIMIT);
 
 // добавляем валидатор на паттерн хэштегов
-pristine.addValidator(hashtagsInput, validateHashtagsPattern, errorsText.hashtagsInvalid);
+pristine.addValidator(hashtagsInput, validateHashtagsPattern, ErrorsText.HASHTAG_INVALID);
 
 // добавляем валидатор на уникальность хэштегов
-pristine.addValidator(hashtagsInput, validateHastagsAreUnique, errorsText.hashtagsRepeat);
+pristine.addValidator(hashtagsInput, validateHastagsAreUnique, ErrorsText.HASHTAGS_REPEAT);
 
 // добавляем закрытие модального окна на кнопку
 uploadOverlayCloseButton.addEventListener('click', closeUploadOverlay);
 
-// добавляем открытие модального окна на инпут при изменении содержания (загрузки изображения)
+// добавляем открытие модального окна на инпут при изменении содержания + загрузку изображения
 imageUploadInput.addEventListener('change', () => {
   openUploadOverlay();
+  uploadImage();
 });
 
 // добавляем событие на отправку формы

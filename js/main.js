@@ -2,7 +2,7 @@
 import './image-load.js';
 
 // Импорт модуля с фильтрами
-import {setFilters} from './fiters.js';
+import { setFilters } from './fiters.js';
 
 // Импорт функции отрисовки миниатюр
 import { getMiniatures } from './miniatures.js';
@@ -22,8 +22,7 @@ import { showDataError } from './utils.js';
 // загружаем данные, отрисовываем миниатюры, создаем модальное окно
 getData()
   .then((array) => {
-    setFilters(array, getMiniatures, setFullscale);
-    // getMiniatures(array);
-    // setFullscale(array);
+    setFilters(array, getMiniatures);
+    setFullscale(array);
   })
   .catch(showDataError);
