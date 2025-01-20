@@ -2,10 +2,10 @@
 import { shuffleArray, debounce } from './utils.js';
 
 // Находим элементы, задаем константы
-const filterBlock = document.querySelector('.img-filters');
-const defaultButton = filterBlock.querySelector('#filter-default');
-const randomButton = filterBlock.querySelector('#filter-random');
-const discussedButton = filterBlock.querySelector('#filter-discussed');
+const filterButtonsBlock = document.querySelector('.img-filters');
+const defaultButton = filterButtonsBlock.querySelector('#filter-default');
+const randomButton = filterButtonsBlock.querySelector('#filter-random');
+const discussedButton = filterButtonsBlock.querySelector('#filter-discussed');
 
 const RANDOM_AMOUNT = 10;
 const RERENDER_DELAY = 500;
@@ -13,7 +13,7 @@ const RERENDER_DELAY = 500;
 // Функция, подсвечивающая вкладку с активным фильтром
 const onClickToogleActive = (evt) => {
   if (evt.target.matches('.img-filters__button')) {
-    const previous = filterBlock.querySelector('.img-filters__button--active');
+    const previous = filterButtonsBlock.querySelector('.img-filters__button--active');
     previous.classList.remove('img-filters__button--active');
     evt.target.classList.add('img-filters__button--active');
   }
@@ -58,7 +58,7 @@ const setDiscussedFilter = (array, miniaturesFunction) => {
 // Функция, устанавливающая фильтры
 const setFilters = (array, miniaturesFunction) => {
   setDefaultFilter(array, miniaturesFunction);
-  filterBlock.classList.remove('img-filters--inactive');
+  filterButtonsBlock.classList.remove('img-filters--inactive');
 
   defaultButton.addEventListener('click', debounce(
     () => setDefaultFilter(array, miniaturesFunction),RERENDER_DELAY));
@@ -70,7 +70,7 @@ const setFilters = (array, miniaturesFunction) => {
 };
 
 // Добавляем подсвечивание активной вкладки с фильтром по клику
-filterBlock.addEventListener('click', onClickToogleActive);
+filterButtonsBlock.addEventListener('click', onClickToogleActive);
 
 export { setFilters };
 
