@@ -1,14 +1,14 @@
 // Импорт функции которая перемешивает массив
 import { shuffleArray, debounce } from './utils.js';
 
+const RANDOM_AMOUNT = 10;
+const RERENDER_DELAY = 500;
+
 // Находим элементы, задаем константы
 const filterButtonsBlock = document.querySelector('.img-filters');
 const defaultButton = filterButtonsBlock.querySelector('#filter-default');
 const randomButton = filterButtonsBlock.querySelector('#filter-random');
 const discussedButton = filterButtonsBlock.querySelector('#filter-discussed');
-
-const RANDOM_AMOUNT = 10;
-const RERENDER_DELAY = 500;
 
 // Функция, подсвечивающая вкладку с активным фильтром
 const onClickToogleActive = (evt) => {
@@ -60,13 +60,11 @@ const setFilters = (array, miniaturesFunction) => {
   setDefaultFilter(array, miniaturesFunction);
   filterButtonsBlock.classList.remove('img-filters--inactive');
 
-  defaultButton.addEventListener('click', debounce(
-    () => setDefaultFilter(array, miniaturesFunction),RERENDER_DELAY));
-  randomButton.addEventListener('click', debounce(
-    () => setRandomFilter(array, miniaturesFunction),RERENDER_DELAY));
-  discussedButton.addEventListener('click', debounce(
-    () => setDiscussedFilter(array, miniaturesFunction),RERENDER_DELAY));
+  const renderWithDebounce = debounce(miniaturesFunction, RERENDER_DELAY); // функция отрисовки миниатюр с debounce
 
+  defaultButton.addEventListener('click', () => setDefaultFilter(array, renderWithDebounce));
+  randomButton.addEventListener('click', () => setRandomFilter(array, renderWithDebounce));
+  discussedButton.addEventListener('click', () => setDiscussedFilter(array, renderWithDebounce));
 };
 
 // Добавляем подсвечивание активной вкладки с фильтром по клику

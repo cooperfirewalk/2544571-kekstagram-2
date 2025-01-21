@@ -1,6 +1,8 @@
 // Импортируем функцию проверки нажатия Esc
 import { isEscapeKey } from './utils.js';
 
+const COMMENTS_PACE = 5; // Константа, задающая шаг - количество показываемых комментариев
+
 // Находим элементы на странице
 const bigPicture = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
@@ -15,11 +17,9 @@ const shownCommentsCount = bigPicture.querySelector('.social__comment-shown-coun
 const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
-const COMMENTS_PACE = 5; // Константа, задающая шаг - количество показываемых комментариев
-
 // создание модального окна и всей его начинки оборачиваем в функцию для экспорта
 const setFullscale = (array) => {
-  let active = 0; // Счетчик активных комментариев
+  let activeCommentsAmount = 0; // Счетчик активных комментариев
   let commentsArray = []; // Временный массив для порционной генерации комментариев
 
   // Убираем комментарии, поставленные в разметке по умолчанию
@@ -52,13 +52,13 @@ const setFullscale = (array) => {
 
   // Функция для порционной генерации комментариев
   const getCommentsPortion = () => {
-    const portionArray = commentsArray.slice(active, active + COMMENTS_PACE); // пробуем сделать порцию-срез массива
+    const portionArray = commentsArray.slice(activeCommentsAmount, activeCommentsAmount + COMMENTS_PACE); // пробуем сделать порцию-срез массива
     generateComments(portionArray); // генерируем комменты по этой порции массива
-    if ((commentsArray.length - active) <= COMMENTS_PACE) { // скрываем кнопку если эта итерация была последней
+    if ((commentsArray.length - activeCommentsAmount) <= COMMENTS_PACE) { // скрываем кнопку если эта итерация была последней
       commentsLoader.classList.add('hidden');
     }
-    active = active + portionArray.length;
-    shownCommentsCount.textContent = active; // обновляем счетчик И обновляем active
+    activeCommentsAmount = activeCommentsAmount + portionArray.length;
+    shownCommentsCount.textContent = activeCommentsAmount; // обновляем счетчик И обновляем activeCommentsAmount
   };
 
   // Функция для обработчика события на нажатие Esc при открытом модальном окне
@@ -86,7 +86,7 @@ const setFullscale = (array) => {
     document.removeEventListener('keydown', onDocumentKeyDown);
 
     // Сбрасываем счетчик активных, временный массив и убираем комментарии:
-    active = 0;
+    activeCommentsAmount = 0;
     commentsArray = [];
     commentContainer.innerHTML = '';
   }
