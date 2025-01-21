@@ -79,9 +79,9 @@ const validateHastagsAreUnique = (value) => {
 // функция закрытия модального окна по Esc
 const onDocumentKeyDown = (evt) => {
   const activeElement = document.activeElement; // ПРАВКА - добавлено условие на активные поля хэштега и коммента
-  const err = document.querySelector('.error'); // условие, чтобы не закрывалось, когда алерт выведен
-  const ok = document.querySelector('.success');
-  if (isEscapeKey(evt) && activeElement !== commentsInput && activeElement !== hashtagsInput && !err && !ok) {
+  const errorAlert = document.querySelector('.error');
+  const okAlert = document.querySelector('.success');
+  if (isEscapeKey(evt) && activeElement !== commentsInput && activeElement !== hashtagsInput && !errorAlert && !okAlert) {
     evt.preventDefault();
     closeUploadOverlay();
   }
