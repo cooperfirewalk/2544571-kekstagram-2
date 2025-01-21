@@ -60,13 +60,11 @@ const setFilters = (array, miniaturesFunction) => {
   setDefaultFilter(array, miniaturesFunction);
   filterButtonsBlock.classList.remove('img-filters--inactive');
 
-  defaultButton.addEventListener('click', debounce(
-    () => setDefaultFilter(array, miniaturesFunction),RERENDER_DELAY));
-  randomButton.addEventListener('click', debounce(
-    () => setRandomFilter(array, miniaturesFunction),RERENDER_DELAY));
-  discussedButton.addEventListener('click', debounce(
-    () => setDiscussedFilter(array, miniaturesFunction),RERENDER_DELAY));
+  const renderWithDebounce = debounce(miniaturesFunction, RERENDER_DELAY); // функция отрисовки миниатюр с debounce
 
+  defaultButton.addEventListener('click', () => setDefaultFilter(array, renderWithDebounce));
+  randomButton.addEventListener('click', () => setRandomFilter(array, renderWithDebounce));
+  discussedButton.addEventListener('click', () => setDiscussedFilter(array, renderWithDebounce));
 };
 
 // Добавляем подсвечивание активной вкладки с фильтром по клику
