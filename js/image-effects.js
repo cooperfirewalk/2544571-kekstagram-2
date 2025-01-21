@@ -1,3 +1,10 @@
+// Параметры для масштаба
+const ScaleMeasures = {
+  MAX: 100,
+  MIN: 25,
+  STEP: 25
+};
+
 // выполнение задания 9.2
 const imageUploadForm = document.querySelector('.img-upload__form');
 const smallerButton = imageUploadForm.querySelector('.scale__control--smaller');
@@ -8,13 +15,6 @@ const sliderElement = imageUploadForm.querySelector('.effect-level__slider');
 const sliderContainer = imageUploadForm.querySelector('.img-upload__effect-level');
 const effectsList = imageUploadForm.querySelector('.effects__list');
 const effectLevel = imageUploadForm.querySelector('.effect-level__value');
-
-// Параметры для масштаба ПЕРЕЧИСЛЕНИЕ?
-const ScaleMeasures = {
-  MAX: 100,
-  MIN: 25,
-  STEP: 25
-};
 
 // Глобальная переменная для масштаба
 let scale = 100;

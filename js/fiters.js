@@ -1,14 +1,14 @@
 // Импорт функции которая перемешивает массив
 import { shuffleArray, debounce } from './utils.js';
 
+const RANDOM_AMOUNT = 10;
+const RERENDER_DELAY = 500;
+
 // Находим элементы, задаем константы
 const filterButtonsBlock = document.querySelector('.img-filters');
 const defaultButton = filterButtonsBlock.querySelector('#filter-default');
 const randomButton = filterButtonsBlock.querySelector('#filter-random');
 const discussedButton = filterButtonsBlock.querySelector('#filter-discussed');
-
-const RANDOM_AMOUNT = 10;
-const RERENDER_DELAY = 500;
 
 // Функция, подсвечивающая вкладку с активным фильтром
 const onClickToogleActive = (evt) => {

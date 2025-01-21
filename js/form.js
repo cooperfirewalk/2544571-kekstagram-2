@@ -10,15 +10,6 @@ import { isEscapeKey, showUploadAlert, hideUploadAlert } from './utils.js';
 // импортируем функцию сброса эффектов изображения
 import { resetEffectsParameters } from './image-effects.js';
 
-const bodyElement = document.querySelector('body');
-const imageUploadForm = document.querySelector('.img-upload__form');
-const uploadButton = imageUploadForm.querySelector('#upload-submit');
-const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
-const uploadOverlay = document.querySelector('.img-upload__overlay');
-const uploadOverlayCloseButton = uploadOverlay.querySelector('.img-upload__cancel');
-const hashtagsInput = uploadOverlay.querySelector('.text__hashtags');
-const commentsInput = uploadOverlay.querySelector('.text__description');
-
 // константы, используемые в модуле
 const COMMENT_LENGTH = 140;
 const HASHTAGS_AMOUNT = 5;
@@ -31,6 +22,15 @@ const ErrorsText = {
   HASHTAGS_REPEAT: 'хэштеги повторяются',
   COMMENT_LENGTH: 'длина комментария больше 140 символов'
 };
+
+const bodyElement = document.querySelector('body');
+const imageUploadForm = document.querySelector('.img-upload__form');
+const uploadButton = imageUploadForm.querySelector('#upload-submit');
+const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
+const uploadOverlay = document.querySelector('.img-upload__overlay');
+const uploadOverlayCloseButton = uploadOverlay.querySelector('.img-upload__cancel');
+const hashtagsInput = uploadOverlay.querySelector('.text__hashtags');
+const commentsInput = uploadOverlay.querySelector('.text__description');
 
 //Создаем экземпляр Пристин
 const pristine = new Pristine(imageUploadForm, {

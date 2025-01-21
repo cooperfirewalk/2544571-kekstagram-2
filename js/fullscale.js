@@ -1,6 +1,8 @@
 // Импортируем функцию проверки нажатия Esc
 import { isEscapeKey } from './utils.js';
 
+const COMMENTS_PACE = 5; // Константа, задающая шаг - количество показываемых комментариев
+
 // Находим элементы на странице
 const bigPicture = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
@@ -14,8 +16,6 @@ const commentContainer = bigPicture.querySelector('.social__comments');
 const shownCommentsCount = bigPicture.querySelector('.social__comment-shown-count');
 const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
-
-const COMMENTS_PACE = 5; // Константа, задающая шаг - количество показываемых комментариев
 
 // создание модального окна и всей его начинки оборачиваем в функцию для экспорта
 const setFullscale = (array) => {
